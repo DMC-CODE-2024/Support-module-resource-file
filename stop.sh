@@ -1,6 +1,6 @@
 #!/bin/bash
 
-module_name="api_support"
+module_name="api_redmine"
 
 process=$module_name.jar
 

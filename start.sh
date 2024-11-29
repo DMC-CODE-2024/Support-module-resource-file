@@ -1,7 +1,7 @@
 #!/bin/bash
 
-module_name="api_support"
-main_module="api_service" #keep it empty "" if there is no main module 
+module_name="api_redmine"
+main_module="api_service" #keep it empty "" if there is no main module
 log_level="INFO" # INFO, DEBUG, ERROR
 
 ########### DO NOT CHANGE ANY CODE OR TEXT AFTER THIS LINE #########
@@ -38,12 +38,9 @@ else  ## No process running
 
   ## Starting the process
 
-  echo "Starting ${module_name} module..."
+  echo "Starting ${module_name} process..."
 
-#  java -Xmx1024m -Xms256m -Dlog4j.configurationFile=./log4j2.xml -Dlog.level=${log_level} -Dlog.path=${log_path} -Dmodule.name=${module_name} -Dspring.config.location=file:${commonConfigurationFile},file:./application.properties -jar ${build} 1>/dev/null 2>${log_path}/${module_name}.error &
-
-
-  java -jar -Xmx1024m -Xms256m $build -Dspring.config.location=file:${commonConfigurationFile},:./application.properties 1>${log_path}/${module_name}.log 2>${log_path}/${module_name}.error &
+java -Dlog4j.configurationFile=file:./log4j2.xml -Dlog.level=${log_level} -Dlog.path=${log_path} -Dmodule.name=${module_name} -Dspring.config.location=file:${commonConfigurationFile},file:./application.properties -jar ${build} 1>/dev/null 2>${log_path}/${module_name}.error &
 
   ## check if process started successfully or not
 
@@ -54,12 +51,13 @@ else  ## No process running
     echo "Failed to start $module_name process !!!"
 
   else
-    
+
     echo "$module_name process is started successfully with PID ${pid} ..."
 
   fi
 
+
+
 fi
 
-#  java -jar -Xmx1024m -Xms256m $PNAME -Dspring.config.location=:./application.properties 1>/u02/eirsdata/logs/eirsbackend/log.log 2>/u02/eirsdata/logs/eirsbackend/error.log &
 
